@@ -85,7 +85,7 @@ class OverlayWindowService : Service() {
                 closeWindow(true)
             }
         }
-        return START_STICKY
+        return START_NOT_STICKY
     }
 
     private fun createNotificationChannel() {
