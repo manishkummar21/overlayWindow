@@ -1,7 +1,7 @@
 name: overlaywindow
 description: A new Flutter project.
 version: 0.0.1
-homepage:
+homepage: https://github.com/manishkummar21/overlayWindow
 
 environment:
   sdk: '>=3.1.3 <4.0.0'
