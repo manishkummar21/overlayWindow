@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="foreground_service_special_use">This service helps this app to show overlay window</string>
+</resources>
