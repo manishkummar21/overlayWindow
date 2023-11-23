@@ -1,14 +1,12 @@
 package com.example.overlaywindow
 
 import android.app.Activity
-import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import com.example.overlaywindow.services.OverlayWindowService
 import com.example.overlaywindow.utils.ContextHolder.applicationContext
 import com.example.overlaywindow.utils.LogUtils
@@ -20,7 +18,7 @@ import io.flutter.plugin.common.*
 class MethodCallHandlerImpl : MethodChannel.MethodCallHandler,
     PluginRegistry.ActivityResultListener {
 
-    private var request_code = 100
+    private var requestCode = 100
 
     var mActivity: Activity? = null
         set(context) {
@@ -91,7 +89,7 @@ class MethodCallHandlerImpl : MethodChannel.MethodCallHandler,
             } else {
                 LogUtils.d("startActivityForResult")
                 mActivity?.startActivityForResult(
-                    intent, request_code
+                    intent, requestCode
                 )
             }
         } else {
@@ -125,7 +123,7 @@ class MethodCallHandlerImpl : MethodChannel.MethodCallHandler,
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, p2: Intent?): Boolean {
-        if (requestCode == request_code) {
+        if (requestCode == this.requestCode) {
             mContext?.let {
                 if (!Settings.canDrawOverlays(it)) {
                     LogUtils.e(
