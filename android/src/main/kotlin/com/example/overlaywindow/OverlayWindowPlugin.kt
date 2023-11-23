@@ -38,7 +38,6 @@ class OverlayWindowPlugin : FlutterPlugin, ActivityAware {
             it.mActivity = activityPluginBinding.activity;
         }
         pluginBinding = activityPluginBinding;
-//        registerOverlayEngine()
         registerListeners()
     }
 
@@ -78,13 +77,6 @@ class OverlayWindowPlugin : FlutterPlugin, ActivityAware {
         applicationContext = null
         methodCallHandler = null
         isInitialized = false
-    }
-
-    private fun registerOverlayEngine() {
-        applicationContext?.let {
-            Utils.createAndSaveEngineToCache(it)
-        }
-
     }
 
     private fun registerListeners() {
