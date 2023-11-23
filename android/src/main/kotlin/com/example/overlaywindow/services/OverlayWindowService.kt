@@ -119,6 +119,7 @@ class OverlayWindowService : Service() {
         LogUtils.i("Closing the overlay window")
         flutterView?.let {
             windowManager.removeView(it)
+            it.detachFromFlutterEngine()
             flutterView = null
         }
         if (isStopService) {
@@ -130,13 +131,16 @@ class OverlayWindowService : Service() {
         flutterView =
             FlutterView(applicationContext, FlutterTextureView(applicationContext)).apply {
                 attachToFlutterEngine(getFlutterEngine())
+                fitsSystemWindows = true
             }
     }
 
 
     private fun getFlutterEngine(): FlutterEngine {
         if (FlutterEngineCache.getInstance().contains(overLayEngine))
-            return FlutterEngineCache.getInstance().get(overLayEngine)!!
+            return FlutterEngineCache.getInstance().get(overLayEngine)!!.apply {
+                lifecycleChannel.appIsResumed()
+            }
         else {
             Utils.createAndSaveEngineToCache(applicationContext)
             return getFlutterEngine()
