@@ -38,7 +38,7 @@ class OverlayWindowPlugin : FlutterPlugin, ActivityAware {
             it.mActivity = activityPluginBinding.activity;
         }
         pluginBinding = activityPluginBinding;
-        registerOverlayEngine()
+//        registerOverlayEngine()
         registerListeners()
     }
 
