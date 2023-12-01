@@ -1,6 +1,7 @@
 package com.example.overlaywindow
 
 import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -82,7 +83,7 @@ class MethodCallHandlerImpl : MethodChannel.MethodCallHandler,
                 mContext?.startActivity(intent)
                 Toast.makeText(
                     mContext,
-                    "Please grant, Can Draw Over Other Apps permission.",
+                    "Please grant, Can Draw Over Other Apps permission",
                     Toast.LENGTH_SHORT
                 ).show()
                 LogUtils.e("Can't detect the permission change, as the mActivity is null")
@@ -123,7 +124,7 @@ class MethodCallHandlerImpl : MethodChannel.MethodCallHandler,
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, p2: Intent?): Boolean {
-        if (requestCode == this.requestCode) {
+        if (requestCode == this.requestCode && resultCode  == RESULT_OK) {
             mContext?.let {
                 if (!Settings.canDrawOverlays(it)) {
                     LogUtils.e(
