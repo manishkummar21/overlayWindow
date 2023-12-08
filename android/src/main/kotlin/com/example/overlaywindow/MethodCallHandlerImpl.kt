@@ -41,10 +41,12 @@ class MethodCallHandlerImpl : MethodChannel.MethodCallHandler,
                 assert(mContext != null)
                 result.success(askPermission())
             }
+
             "checkPermissions" -> {
                 assert(mContext != null)
                 result.success(checkPermission())
             }
+
             "showSystemWindow" -> {
                 if (checkPermission()) {
                     LogUtils.d("Going to show System Alert Window")
@@ -53,11 +55,12 @@ class MethodCallHandlerImpl : MethodChannel.MethodCallHandler,
                     i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
                     i.putExtra(INTENT_EXTRA_IS_CLOSE_WINDOW, false)
                     mContext?.startService(i)
+                    result.success(true)
                 } else {
                     result.success(false)
                 }
-                result.success(true)
             }
+
             "closeSystemWindow" -> {
                 val i = Intent(mContext, OverlayWindowService::class.java)
                 i.putExtra(INTENT_EXTRA_IS_CLOSE_WINDOW, true)
@@ -121,7 +124,7 @@ class MethodCallHandlerImpl : MethodChannel.MethodCallHandler,
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, p2: Intent?): Boolean {
-        if (requestCode == this.requestCode && resultCode  == RESULT_OK) {
+        if (requestCode == this.requestCode && resultCode == RESULT_OK) {
             mContext?.let {
                 if (!Settings.canDrawOverlays(it)) {
                     LogUtils.e(
