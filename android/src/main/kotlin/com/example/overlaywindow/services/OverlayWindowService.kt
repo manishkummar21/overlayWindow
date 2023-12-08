@@ -68,11 +68,16 @@ class OverlayWindowService : Service() {
             .setDeleteIntent(getCloseIntent())
             .addAction(0, "stop", getCloseIntent())
             .build()
-        if (Build.VERSION.SDK_INT >= 34) {
-            startForeground(notificationID, notification, FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
-        } else {
-            startForeground(notificationID, notification)
+        try {
+            if (Build.VERSION.SDK_INT >= 34) {
+                startForeground(notificationID, notification, FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
+            } else {
+                startForeground(notificationID, notification)
+            }
+        } catch (ex: Exception) {
+            LogUtils.e("startForeground exception")
         }
+
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {

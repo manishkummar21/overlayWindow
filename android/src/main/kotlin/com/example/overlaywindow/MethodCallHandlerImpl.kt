@@ -54,9 +54,6 @@ class MethodCallHandlerImpl : MethodChannel.MethodCallHandler,
                     i.putExtra(INTENT_EXTRA_IS_CLOSE_WINDOW, false)
                     mContext?.startService(i)
                 } else {
-                    Toast.makeText(
-                        mContext, "Please give draw over other apps permission", Toast.LENGTH_LONG
-                    ).show()
                     result.success(false)
                 }
                 result.success(true)
